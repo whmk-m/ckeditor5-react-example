@@ -25,6 +25,8 @@ const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpack
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
+const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin')
+
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -624,6 +626,16 @@ module.exports = function(webpackEnv) {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
+        new CKEditorWebpackPlugin({
+            // The main language that will be built into the main bundle.
+            language: 'zh-cn'
+
+            // Additional languages that will be emitted to the `outputDirectory`.
+            // This option can be set to an array of language codes or `'all'` to build all found languages.
+            // The bundle is optimized for one language when this option is omitted.
+            // additionalLanguages: 'all'
+            // For more advanced options see https://github.com/ckeditor/ckeditor5-dev/tree/master/packages/ckeditor5-dev-webpack-plugin.
+        })
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
