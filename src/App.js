@@ -57,6 +57,9 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
+// CKEDITOR检查器
+import CKEditorInspector from '@ckeditor/ckeditor5-inspector';
+
 
 const editorConfiguration =  {
     language: {
@@ -167,21 +170,7 @@ const editorConfiguration =  {
             }
         }
     },
-    mention: {
-        feeds: [
-            {
-                marker: '@',
-                feed: [
-                    '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
-                    '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
-                    '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
-                    '@sugar', '@sweet', '@topping', '@wafer'
-                ],
-                minimumCharacters: 1
-            }
-        ]
-    },
-    placeholder: 'Type or paste your content here!',
+    placeholder: '请编辑',
     table: {
         contentToolbar: [
             'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties', 'toggleTableCaption'
@@ -197,11 +186,12 @@ class App extends Component {
         <CKEditor
           editor={ ClassicEditor }
           config={ editorConfiguration }
-          data="<p>Hello from CKEditor 5!</p>"
+          data=""
           onReady={ editor => {
             // You can store the "editor" and use when it is needed.
             console.log( 'Editor is ready to use!', editor );
               window.editor = editor;
+              CKEditorInspector.attach( editor );
               // Prevent showing a warning notification when user is pasting a content from MS Word or Google Docs.
               window.preventPasteFromOfficeNotification = true;
 
@@ -212,10 +202,10 @@ class App extends Component {
             console.log( { event, editor, data } );
           } }
           onBlur={ editor => {
-            console.log( 'Blur.', editor );
+            // console.log( 'Blur.', editor );
           } }
           onFocus={ editor => {
-            console.log( 'Focus.', editor );
+            // console.log( 'Focus.', editor );
           } }
         />
       </div>
